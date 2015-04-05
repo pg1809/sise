@@ -1,10 +1,5 @@
 package sise.pietnastka;
 
-/**
- * Slide a numbered tile from (c,r) to (c', r').
- *
- * @author George Heineman
- */
 public class Move {
 
     /**

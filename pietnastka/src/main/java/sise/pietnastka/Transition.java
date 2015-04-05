@@ -1,13 +1,5 @@
 package sise.pietnastka;
 
-/**
- * Stores the move and the previous state that was present when the move was
- * made.
- *
- * @author George Heineman
- * @version 1.0, 6/15/08
- * @since 1.0
- */
 public class Transition {
 
     private final Move move;

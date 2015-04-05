@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PuzzleNode {
+public class PuzzleNode implements Comparable<PuzzleNode> {
 
     private int[][] board;
 
@@ -159,15 +159,15 @@ public class PuzzleNode {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int r = 0; r < board.length; r++) {
+        for (int[] board1 : board) {
             for (int c = 0; c < board[0].length; c++) {
-                if (board[r][c] == 0) {
+                if (board1[c] == 0) {
                     sb.append("   ");
                 } else {
-                    if (board[r][c] < 10) {
+                    if (board1[c] < 10) {
                         sb.append(" ");
                     }
-                    sb.append(board[r][c]).append(" ");
+                    sb.append(board1[c]).append(" ");
                 }
             }
             sb.append('\n');
@@ -265,5 +265,10 @@ public class PuzzleNode {
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public int compareTo(PuzzleNode o) {
+        return toString().compareTo(o.toString());
     }
 }

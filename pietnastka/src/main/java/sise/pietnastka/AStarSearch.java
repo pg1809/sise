@@ -5,17 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
-/**
- * Given an initial state and a target goal state, expand successors, always
- * choosing to expand the node in the OPEN list whose evaluation is the
- * smallest.
- *
- * Ties are broken randomly, except when one of the tied nodes is a goal node.
- *
- * @author George Heineman
- * @version 1.0, 6/15/08
- * @since 1.0
- */
 public class AStarSearch extends AbstractSearch {
 
     private final Evaluator scoringFunction;
@@ -71,7 +60,7 @@ public class AStarSearch extends AbstractSearch {
                 int idx = closed.indexOf(successor);
                 PuzzleNode past = null;
                 if (idx >= 0) {
-                    closed.get(closed.indexOf(successor));
+                    past = closed.get(idx);
                 }
                 if (past != null) {
                     if (successor.getScore() >= past.getScore()) {
