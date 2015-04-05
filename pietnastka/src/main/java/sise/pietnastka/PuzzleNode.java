@@ -14,9 +14,9 @@ public class PuzzleNode implements Comparable<PuzzleNode> {
 
     private Transition transition;
 
-    private static Map<Character, int[]> deltas;
+    private static final Map<Character, int[]> deltas;
 
-    private static List<int[]> deltasList = new ArrayList<>(4);
+    private static final List<int[]> deltasList = new ArrayList<>(4);
 
     static {
         deltas = new HashMap<>();
