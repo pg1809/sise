@@ -25,9 +25,13 @@ public class FifteenGenerator {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Dystans od rozwiązania: ");
         int distance = scanner.nextInt();
+        System.out.print("Limit układanek (ujemna liczba oznacza brak limitu): ");
         int limit = scanner.nextInt();
+        System.out.print("Liczba wierszy układanek: ");
         int rows = scanner.nextInt();
+        System.out.print("Liczba kolumn układanek: ");
         int columns = scanner.nextInt();
         
         if (limit < 0) {
