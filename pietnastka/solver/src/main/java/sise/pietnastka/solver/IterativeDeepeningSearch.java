@@ -20,6 +20,10 @@ public class IterativeDeepeningSearch extends DepthFirstSearch {
 
     @Override
     public Solution search(PuzzleNode initial, PuzzleNode goal, String movesOrder) {
+        statesOpen = 0;
+        statesClosed = 0;
+        depthBound = 1;
+        
         Solution solution;
         // Puszczamy w pętli DFS, zwiększając mu co obieg ograniczenie głębokości
         int numClosed = 0;
@@ -33,9 +37,9 @@ public class IterativeDeepeningSearch extends DepthFirstSearch {
         // albo nie zostanie przekroczona maksymalna głębokość
         } while (solution == null && depthBound <= maxDepth);
         
-        depthBound = 1;
         statesOpen = numOpen;
         statesClosed = numClosed;
+        
         return solution;
     }
 }

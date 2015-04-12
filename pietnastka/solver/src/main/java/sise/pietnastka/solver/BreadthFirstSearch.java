@@ -22,11 +22,13 @@ public class BreadthFirstSearch extends AbstractSearch {
 
         Queue<PuzzleNode> open = new LinkedList<>();
         open.add(new PuzzleNode(initial));
+        statesOpen = 1;
 
         Set<PuzzleNode> closed = new HashSet<>();
         while (!open.isEmpty()) {
             PuzzleNode node = open.remove();
             closed.add(node);
+            statesClosed++;
 
             Transition trans = node.getTransition();
 

@@ -32,6 +32,7 @@ public class AStarSearch extends AbstractSearch {
         PuzzleNode copy = new PuzzleNode(initial);
         scoringFunction.giveScoreToState(copy);
         open.add(copy);
+        statesOpen = 1;
 
         // zbiór stanów odwiedzonych, dla szybkości znajdowania elementów wybrałem zbiór hashujący,
         // niestety HashSet, nie ma metod pozwalających na wyciąganie elementów ze zbioru :(
@@ -41,10 +42,9 @@ public class AStarSearch extends AbstractSearch {
 
             PuzzleNode node = open.poll();
             closed.put(node, node);
+            statesClosed++;
 
             if (node.equals(goal)) {
-                statesOpen = open.size();
-                statesClosed = closed.size();
                 return new Solution(initial, node);
             }
 
@@ -76,14 +76,14 @@ public class AStarSearch extends AbstractSearch {
                     // to usuwamy go ze zbioru stanów przetowrzonych i później dodajemy do zbioru stanów do przetworzenia,
                     // ale już z nową, lepszą oceną
                     closed.remove(past);
+                    statesClosed--;
                 }
 
                 open.add(successor);
+                statesOpen++;
             }
         }
 
-        statesOpen = open.size();
-        statesClosed = closed.size();
         return null;
     }
 

@@ -35,11 +35,13 @@ public class DepthFirstSearch extends AbstractSearch {
 
         Stack<PuzzleNode> open = new Stack<>();
         open.push(new PuzzleNode(initial));
+        statesOpen = 1;
 
         Set<PuzzleNode> closed = new HashSet<>();
         while (!open.isEmpty()) {
             PuzzleNode node = open.pop();
             closed.add(node);
+            statesClosed++;
 
             Transition trans = node.getTransition();
 
@@ -58,11 +60,9 @@ public class DepthFirstSearch extends AbstractSearch {
                     depth = trans.getDepth() + 1;
                 }
                 maximumDepth = Math.max(maximumDepth, depth);
-                
+
                 successor.setTransition(new Transition(move, node, depth));
                 if (successor.equals(goal)) {
-                    statesOpen = open.size();
-                    statesClosed = closed.size();
                     return new Solution(initial, successor);
                 }
 
@@ -70,12 +70,11 @@ public class DepthFirstSearch extends AbstractSearch {
                 // dodajemy nowy stan planszy do zbioru stanów oczekujących na przetworzenie
                 if (depth < depthBound) {
                     open.add(successor);
+                    statesOpen++;
                 }
             }
         }
 
-        statesOpen = open.size();
-        statesClosed = closed.size();
         return null;
     }
 
