@@ -24,6 +24,7 @@ public class BreadthFirstSearch extends AbstractSearch {
         open.add(new PuzzleNode(initial));
         statesOpen = 1;
 
+        statesClosed = 0;
         Set<PuzzleNode> closed = new HashSet<>();
         while (!open.isEmpty()) {
             PuzzleNode node = open.remove();
@@ -50,16 +51,13 @@ public class BreadthFirstSearch extends AbstractSearch {
 
                 successor.setTransition(new Transition(move, node, depth));
                 if (successor.equals(goal)) {
-                    statesOpen = open.size();
-                    statesClosed = closed.size();
                     return new Solution(initial, successor);
                 }
                 open.add(successor);
+                ++statesOpen;
             }
         }
 
-        statesOpen = open.size();
-        statesClosed = closed.size();
         return null;
     }
 }

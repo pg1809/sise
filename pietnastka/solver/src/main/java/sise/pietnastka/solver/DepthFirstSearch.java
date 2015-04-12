@@ -37,6 +37,7 @@ public class DepthFirstSearch extends AbstractSearch {
         open.push(new PuzzleNode(initial));
         statesOpen = 1;
 
+        statesClosed = 0;
         Set<PuzzleNode> closed = new HashSet<>();
         while (!open.isEmpty()) {
             PuzzleNode node = open.pop();
