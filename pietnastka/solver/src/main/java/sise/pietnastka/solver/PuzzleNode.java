@@ -66,7 +66,6 @@ public class PuzzleNode implements Serializable {
     public List<Move> getValidMoves(String movesOrder) {
         List<Move> list = new ArrayList<>();
 
-        // where is the blank?
         int blankRow = -1, blankColumn = -1;
 
         boolean finished = false;

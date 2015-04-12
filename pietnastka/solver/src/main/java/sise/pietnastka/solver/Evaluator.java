@@ -2,7 +2,7 @@ package sise.pietnastka.solver;
 
 /**
  * Klasa przeprowadzająca ewaluacje stanu planszy na potrzeby algorytmu A*.
- * Wykorzystana heurystyka to Manhaatan.
+ * Wykorzystana heurystyka to Manhattan.
  * 
  * @author PiotrGrzelak
  */
@@ -30,11 +30,11 @@ public class Evaluator {
     }
 
     /**
-     * Metoda przeprowadzająca obliczenie oceny dla podanego stanu. Wykorzystuje heurystykę Manhaatan,
+     * Metoda przeprowadzająca obliczenie oceny dla podanego stanu. Wykorzystuje heurystykę Manhattan,
      * Oblicza, dla każdego pola układanki jak daleko znajduje się od miejsca, w którym powinno być, 
      * w docelowym stanie planszy. Odległości te są następnie sumowane. Do oceny dodawana jest 
      * następnie głębokość w drzewie na jakiej znajduje się stan, 
-     * liczba ta i suma odległości Manhaatan tworzą w sumie ocenę stanu 
+     * liczba ta i suma odległości Manhattan tworzą w sumie ocenę stanu 
      * 
      * @param state stan dla którego liczona jest ocena
      * @return ocena stanu

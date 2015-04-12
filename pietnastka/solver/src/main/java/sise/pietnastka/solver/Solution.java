@@ -63,18 +63,16 @@ public class Solution implements Serializable {
     }
 
     /**
-     * Odtwarza sekwencję ruchów prowadzących do rozwiązania układanki, robi to "od tyłu",
+     * Odtwarza sekwencję ruchów prowadzących do rozwiązania układanki, robi to "wstecz",
      * wychodząc od stanu docelowego (tak jak w tych wsszystkich algorytmach grafowych, 
      * gdzie ścieżki w grafach musimy odtwarzać na podstawie końcowego wierzchołka)
      */
     private void recreateMovesSequence(PuzzleNode goal) {
         PuzzleNode node = goal;
 
-        // work our way backwards until we terminate at the initial state.
         while (node != null) {
             Transition trans = node.getTransition();
 
-            // gone to the end!
             if (trans == null) {
                 break;
             }
@@ -83,7 +81,6 @@ public class Solution implements Serializable {
             node = trans.getPrevious();
         }
 
-        // List is now the reverse of the solution path. So we reverse it here
         Collections.reverse(moves);
     }
 }

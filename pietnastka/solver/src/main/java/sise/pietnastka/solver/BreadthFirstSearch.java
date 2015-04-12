@@ -29,7 +29,7 @@ public class BreadthFirstSearch extends AbstractSearch {
             closed.add(node);
 
             Transition trans = node.getTransition();
-            
+
             List<Move> moves = node.getValidMoves(movesOrder);
             for (Move move : moves) {
 
@@ -56,6 +56,8 @@ public class BreadthFirstSearch extends AbstractSearch {
             }
         }
 
+        statesOpen = open.size();
+        statesClosed = closed.size();
         return null;
     }
 }

@@ -67,7 +67,7 @@ public class DepthFirstSearch extends AbstractSearch {
                 }
 
                 // jeśli nie zeszliśmy jeszcze na maksymalną głębokość,
-                // dodajemy nowy stan planszy do zbioru stanów oczekujących na przetowrzenie
+                // dodajemy nowy stan planszy do zbioru stanów oczekujących na przetworzenie
                 if (depth < depthBound) {
                     open.add(successor);
                 }

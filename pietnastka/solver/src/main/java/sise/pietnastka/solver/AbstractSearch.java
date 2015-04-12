@@ -13,7 +13,7 @@ public abstract class AbstractSearch {
     protected int statesOpen;
     
     /**
-     * Liczba stanów w zbiorze stanów przetowrzonych przez algorytm
+     * Liczba stanów w zbiorze stanów przetworzonych przez algorytm
      */
     protected int statesClosed;
     
@@ -36,7 +36,7 @@ public abstract class AbstractSearch {
      * @param target stan układanki, do którego należy znaleźć ścieżkę
      * @param movesOrder porządek w jakim wykonywane mają być ruchy na planszy 
      * (patrz treść zadania na wikampie)
-     * @return obiekt klasy @Solution zawierający informacje o rozwiązaniu układanki,
+     * @return obiekt klasy {@link Solution} zawierający informacje o rozwiązaniu układanki,
      * jeśli rozwiązania nie udało się znaleźć zwracany jest null.
      */
     public abstract Solution search(PuzzleNode initial, PuzzleNode target, String movesOrder);
