@@ -39,9 +39,12 @@ public class PuzzlesGenerator {
             StateNode node = nodesQueue.poll();
             processedStates.add(node);
 
-            if (node.distanceFromSolution == distance && statesInList < limit) {
+            if (node.distanceFromSolution == distance) {
                 puzzles.add(node.state);
                 statesInList++;
+                if (statesInList == limit) {
+                    return puzzles;
+                }
             } else if (node.distanceFromSolution < distance) {
                 List<StateNode> neighbours = generateNeighbouringStates(node);
                 for (StateNode neighbour : neighbours) {
