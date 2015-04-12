@@ -8,8 +8,6 @@ package sise.pietnastka.visual;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.Timer;
 import sise.pietnastka.solver.Move;
 import sise.pietnastka.solver.PuzzleNode;
@@ -31,6 +29,8 @@ public class PuzzleDialog extends javax.swing.JDialog {
     
     private int moveProcessed = 0;
     
+    private PuzzleNode node;
+    
     /**
      * Creates new form PuzzleDialog
      */
@@ -39,9 +39,10 @@ public class PuzzleDialog extends javax.swing.JDialog {
         initComponents();
         
         this.solution = solution;
+        this.node = solution.getNode();
         
-        int rows = solution.getNode().getRowsNum();
-        int columns = solution.getNode().getColumnsNum();
+        int rows = solution.getPuzzleRowsNum();
+        int columns = solution.getPuzzleColumnsNum();
         
         this.setSize(rows * TilePanel.TILE_WIDTH, columns * TilePanel.TILE_HEIGHT);
         boardView = new TilePanel[rows][columns];
@@ -67,14 +68,13 @@ public class PuzzleDialog extends javax.swing.JDialog {
     private void timeElapsed() {
         if (moveProcessed < solution.getMovesNum()) {
             Move move = solution.getMoves().get(moveProcessed);
-            move.execute(solution.getNode());
+            move.execute(node);
             fillBoardView();
             moveProcessed++;
         }
     }
     
     private void fillBoardView() {
-        PuzzleNode node = solution.getNode();
         for (int i = 0; i < boardView.length; ++i) {
             for (int j = 0; j < boardView[0].length; ++j) {
                 boardView[i][j].setNumber(node.getCell(i, j));
