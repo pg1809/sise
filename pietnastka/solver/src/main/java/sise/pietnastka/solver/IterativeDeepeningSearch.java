@@ -31,7 +31,7 @@ public class IterativeDeepeningSearch extends DepthFirstSearch {
             numOpen += statesOpen;
         // Operacje powtarzamy dopóki nie zostanie znalezione rozwiązanie, 
         // albo nie zostanie przekroczona maksymalna głębokość
-        } while (solution != null && depthBound <= maxDepth);
+        } while (solution == null && depthBound <= maxDepth);
         
         depthBound = 1;
         statesOpen = numOpen;
