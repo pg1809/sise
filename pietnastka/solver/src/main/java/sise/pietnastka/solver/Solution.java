@@ -35,9 +35,17 @@ public class Solution implements Serializable {
     }
     
     public PuzzleNode getNode() {
-        return initial;
+        return new PuzzleNode(initial);
     }
 
+    public int getPuzzleRowsNum() {
+        return initial.getRowsNum();
+    }
+    
+    public int getPuzzleColumnsNum() {
+        return initial.getColumnsNum();
+    }
+    
     public int getMovesNum() {
         return moves.size();
     }
