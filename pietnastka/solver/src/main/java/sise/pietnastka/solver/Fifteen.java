@@ -116,7 +116,7 @@ public class Fifteen {
             loggerMsgBuilder.append(" Opened states: ")
                     .append(searchAlgorithm.getStatesOpen()).append(" ")
                     .append("Closed states: ").append(searchAlgorithm.getStatesClosed()).append(" ")
-                    .append("Maximum depth: ").append(searchAlgorithm.getStatesOpen()).append(" ");
+                    .append("Maximum depth: ").append(searchAlgorithm.getMaximumDepth()).append(" ");
             
 
 
