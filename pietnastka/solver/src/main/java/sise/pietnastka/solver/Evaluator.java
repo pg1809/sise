@@ -8,7 +8,7 @@ package sise.pietnastka.solver;
  */
 public class Evaluator {
 
-    private final int[][] positionsOfNumbers;
+    protected final int[][] positionsOfNumbers;
 
     public Evaluator(int m, int n) {
         positionsOfNumbers = new int[m * n][2];
@@ -39,7 +39,7 @@ public class Evaluator {
      * @param state stan dla którego liczona jest ocena
      * @return ocena stanu
      */
-    private int evaluate(PuzzleNode state) {
+    protected int evaluate(PuzzleNode state) {
         PuzzleNode node = (PuzzleNode) state;
 
         int Pn = 0;

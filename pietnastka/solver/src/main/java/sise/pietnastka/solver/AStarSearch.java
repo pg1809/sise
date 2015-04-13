@@ -26,7 +26,8 @@ public class AStarSearch extends AbstractSearch {
     @Override
     public Solution search(PuzzleNode initial, PuzzleNode goal, String movesOrder) {
 
-        // Kolejka priorytetowa na stany do przetworzenia (tzw. "otwarte"), gdzie kluczem jest wartość funkcji oceny stanu
+        // Kolejka priorytetowa na stany do przetworzenia (tzw. "otwarte"), 
+        // gdzie priorytet stanowi wartość funkcji oceny stanu
         PriorityQueue<PuzzleNode> open = new PriorityQueue<>((o1, o2) -> o1.getScore() - o2.getScore());
 
         PuzzleNode copy = new PuzzleNode(initial);
@@ -64,7 +65,7 @@ public class AStarSearch extends AbstractSearch {
                 successor.setTransition(new Transition(move, node, depth));
                 scoringFunction.giveScoreToState(successor);
 
-                // Sprawdzamy czy stan jaki uzyskaliśmy w wyniku uzyskania ruchu nie został wcześniej przetworzony
+                // Sprawdzamy czy stan jaki uzyskaliśmy w wyniku wykonania ruchu nie został wcześniej przetworzony
                 PuzzleNode past = closed.get(successor);
                 if (past != null) {
                     // Jeśli był to sprawdzamy jaką dostał wcześniej ocenę
