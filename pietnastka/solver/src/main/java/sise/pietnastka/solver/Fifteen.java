@@ -82,6 +82,7 @@ public class Fifteen {
                 ((DepthFirstSearch) searchAlgorithm).setDepthBound(Integer.parseInt(args[2]));
             } else {
                 System.out.println("Za duża liczba parametrów");
+                return;
             }
         }
         
