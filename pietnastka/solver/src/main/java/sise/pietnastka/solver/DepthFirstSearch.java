@@ -78,4 +78,7 @@ public class DepthFirstSearch extends AbstractSearch {
         return null;
     }
 
+    public void setDepthBound(int depthBound) {
+        this.depthBound = depthBound;
+    }
 }

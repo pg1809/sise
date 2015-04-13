@@ -60,8 +60,8 @@ public class Fifteen {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        if (args.length != 2) {
-            System.out.println("Niewłaściwa liczba parametrów");
+        if (args.length < 2) {
+            System.out.println("Za mała liczba parametrów");
             return;
         }
 
@@ -77,6 +77,14 @@ public class Fifteen {
             return;
         }
 
+        if (args.length == 3) {
+            if(searchAlgorithm instanceof DepthFirstSearch) {
+                ((DepthFirstSearch) searchAlgorithm).setDepthBound(Integer.parseInt(args[2]));
+            } else {
+                System.out.println("Za duża liczba parametrów");
+            }
+        }
+        
         int w;
         int k;
         Scanner scanner = new Scanner(System.in);
