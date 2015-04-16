@@ -3,7 +3,6 @@ package sise.pietnastka.solver;
 /**
  * Abstrakcyjna klasa reprezentująca algorytm przeszukiwania drzewa gry
  *
- * @author PiotrGrzelak
  */
 public abstract class AbstractSearch {
     

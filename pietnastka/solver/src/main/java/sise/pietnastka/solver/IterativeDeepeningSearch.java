@@ -7,7 +7,6 @@ package sise.pietnastka.solver;
 
 /**
  *
- * @author PiotrGrzelak
  */
 public class IterativeDeepeningSearch extends DepthFirstSearch {
 

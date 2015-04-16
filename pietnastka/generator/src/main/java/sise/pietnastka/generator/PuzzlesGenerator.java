@@ -15,7 +15,6 @@ import java.util.Set;
 
 /**
  *
- * @author PiotrGrzelak
  */
 public class PuzzlesGenerator {
 

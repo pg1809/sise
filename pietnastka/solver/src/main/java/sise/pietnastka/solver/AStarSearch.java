@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
- * Klasa reprezentująca algorytm A*.
+ * Klasa reprezentujÄ…ca algorytm A*.
  *
- * @author PiotrGrzelak
  */
 public class AStarSearch extends AbstractSearch {
 
@@ -27,7 +26,7 @@ public class AStarSearch extends AbstractSearch {
     public Solution search(PuzzleNode initial, PuzzleNode goal, String movesOrder) {
 
         // Kolejka priorytetowa na stany do przetworzenia (tzw. "otwarte"), 
-        // gdzie priorytet stanowi wartość funkcji oceny stanu
+        // gdzie priorytet stanowi wartoĹ›Ä‡ funkcji oceny stanu
         PriorityQueue<PuzzleNode> open = new PriorityQueue<>((o1, o2) -> o1.getScore() - o2.getScore());
 
         PuzzleNode copy = new PuzzleNode(initial);
@@ -35,9 +34,9 @@ public class AStarSearch extends AbstractSearch {
         open.add(copy);
         statesOpen = 1;
 
-        // zbiór stanów odwiedzonych, dla szybkości znajdowania elementów wybrałem zbiór hashujący,
-        // niestety HashSet, nie ma metod pozwalających na wyciąganie elementów ze zbioru :(
-        // więc trzeba było użyć hashmapy, i tu ciekawostka, biblioteczny HashSet sam pod spodem ma HashMap :D
+        // zbiĂłr stanĂłw odwiedzonych, dla szybkoĹ›ci znajdowania elementĂłw wybraĹ‚em zbiĂłr hashujÄ…cy,
+        // niestety HashSet, nie ma metod pozwalajÄ…cych na wyciÄ…ganie elementĂłw ze zbioru :(
+        // wiÄ™c trzeba byĹ‚o uĹĽyÄ‡ hashmapy, i tu ciekawostka, biblioteczny HashSet sam pod spodem ma HashMap :D
         HashMap<PuzzleNode, PuzzleNode> closed = new HashMap<>();
         while (!open.isEmpty()) {
 
@@ -65,17 +64,17 @@ public class AStarSearch extends AbstractSearch {
                 successor.setTransition(new Transition(move, node, depth));
                 scoringFunction.giveScoreToState(successor);
 
-                // Sprawdzamy czy stan jaki uzyskaliśmy w wyniku wykonania ruchu nie został wcześniej przetworzony
+                // Sprawdzamy czy stan jaki uzyskaliĹ›my w wyniku wykonania ruchu nie zostaĹ‚ wczeĹ›niej przetworzony
                 PuzzleNode past = closed.get(successor);
                 if (past != null) {
-                    // Jeśli był to sprawdzamy jaką dostał wcześniej ocenę
+                    // JeĹ›li byĹ‚ to sprawdzamy jakÄ… dostaĹ‚ wczeĹ›niej ocenÄ™
                     if (successor.getScore() >= past.getScore()) {
                         continue;
                     }
 
-                    // Jeśli jego poprzednia ocena była gorsza (wartość funkcji oceny miała większą wartość) od obecnej
-                    // to usuwamy go ze zbioru stanów przetowrzonych i później dodajemy do zbioru stanów do przetworzenia,
-                    // ale już z nową, lepszą oceną
+                    // JeĹ›li jego poprzednia ocena byĹ‚a gorsza (wartoĹ›Ä‡ funkcji oceny miaĹ‚a wiÄ™kszÄ… wartoĹ›Ä‡) od obecnej
+                    // to usuwamy go ze zbioru stanĂłw przetworzonych i pĂłĹşniej dodajemy do zbioru stanĂłw do przetworzenia,
+                    // ale juĹĽ z nowÄ…, lepszÄ… ocenÄ…
                     closed.remove(past);
                     statesClosed--;
                 }

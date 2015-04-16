@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Klasa, której obiekty przechowują informację o rozwiązaniu układanki, 
  * tj. stan początkowy układanki i sekwencję ruchów jaką należy wykonać w celu rozwiązania układanki
- * @author PiotrGrzelak
  */
 public class Solution implements Serializable {
 

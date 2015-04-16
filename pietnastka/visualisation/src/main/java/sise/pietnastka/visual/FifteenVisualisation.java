@@ -19,7 +19,6 @@ import sise.pietnastka.solver.Solution;
 
 /**
  *
- * @author PiotrGrzelak
  */
 public class FifteenVisualisation extends javax.swing.JFrame {
 

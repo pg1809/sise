@@ -5,7 +5,6 @@ package sise.pietnastka.solver;
  * jaki był stan układanki przed wykonaniem tego przejścia, 
  * wynikiem jakiego ruchu była ta zmiana stanu oraz głębokość na jakiej doszło do zmiany stanu w drzewie
  * 
- * @author PiotrGrzelak
  */
 public class Transition {
 

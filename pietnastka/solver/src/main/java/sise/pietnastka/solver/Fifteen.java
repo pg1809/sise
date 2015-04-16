@@ -21,7 +21,6 @@ import java.util.logging.SimpleFormatter;
 
 /**
  *
- * @author PiotrGrzelak
  */
 public class Fifteen {
 
@@ -61,7 +60,7 @@ public class Fifteen {
      */
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.out.println("Za mała liczba parametrów");
+            System.out.println("Zbyt mała liczba parametrów");
             return;
         }
 
@@ -72,20 +71,33 @@ public class Fifteen {
         }
 
         String order = args[1];
-        if (!order.matches("[LDGP]{4}|[R]")) {
+
+        if (searchAlgorithm instanceof AStarSearch) {
+            if (Integer.parseInt(args[1]) != 1) {
+                System.out.println("Niepoprawny identyfikator strategii");
+                return;
+            }
+
+            if (!args[2].equals("1") && !args[2].equals("2")) {
+                System.out.println("Niepoprawny identyfikator heurystyki");
+                return;
+            }
+
+            order = "R";
+        } else if (!order.matches("[LDGP]{4}|[R]")) {
             System.out.println("Niepoprawna kolejność ruchów");
             return;
         }
 
         if (args.length == 3) {
-            if(searchAlgorithm instanceof DepthFirstSearch) {
+            if (searchAlgorithm instanceof DepthFirstSearch) {
                 ((DepthFirstSearch) searchAlgorithm).setDepthBound(Integer.parseInt(args[2]));
-            } else {
+            } else if (!(searchAlgorithm instanceof AStarSearch)) {
                 System.out.println("Za duża liczba parametrów");
                 return;
             }
         }
-        
+
         int w;
         int k;
         Scanner scanner = new Scanner(System.in);
@@ -100,7 +112,14 @@ public class Fifteen {
             }
 
             if (searchAlgorithm instanceof AStarSearch) {
-                ((AStarSearch) searchAlgorithm).setScoringFunction(new Evaluator(w, k));
+                switch (args[2]) {
+                    case "1":
+                        ((AStarSearch) searchAlgorithm).setScoringFunction(new Evaluator(w, k));
+                        break;
+                    case "2":
+                        ((AStarSearch) searchAlgorithm).setScoringFunction(new CollisionEvaluator(w, k));
+                        break;
+                }
             }
 
             PuzzleNode goalNode = createGoalNode(w, k);
@@ -126,8 +145,6 @@ public class Fifteen {
                     .append(searchAlgorithm.getStatesOpen()).append(" ")
                     .append("Closed states: ").append(searchAlgorithm.getStatesClosed()).append(" ")
                     .append("Maximum depth: ").append(searchAlgorithm.getMaximumDepth()).append(" ");
-            
-
 
             logger.info(loggerMsgBuilder.toString());
 

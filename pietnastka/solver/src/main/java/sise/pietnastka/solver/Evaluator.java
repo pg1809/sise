@@ -4,7 +4,6 @@ package sise.pietnastka.solver;
  * Klasa przeprowadzająca ewaluacje stanu planszy na potrzeby algorytmu A*.
  * Wykorzystana heurystyka to Manhattan.
  * 
- * @author PiotrGrzelak
  */
 public class Evaluator {
 

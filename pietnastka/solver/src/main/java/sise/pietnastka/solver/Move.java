@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * Klasa reprezentuje ruch w grze.
  * 
- * @author PiotrGrzelak
  */
 public class Move implements Serializable {
 

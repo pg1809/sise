@@ -9,7 +9,6 @@ import java.util.Set;
 /**
  * Klasa reprezentująca algorytm BFS.
  *
- * @author PiotrGrzelak
  */
 public class BreadthFirstSearch extends AbstractSearch {
 

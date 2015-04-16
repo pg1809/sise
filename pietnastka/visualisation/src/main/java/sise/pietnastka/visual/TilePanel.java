@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author PiotrGrzelak
  */
 public class TilePanel extends javax.swing.JPanel {
 

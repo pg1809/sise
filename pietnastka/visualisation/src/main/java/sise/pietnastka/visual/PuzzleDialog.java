@@ -15,7 +15,6 @@ import sise.pietnastka.solver.Solution;
 
 /**
  *
- * @author PiotrGrzelak
  */
 public class PuzzleDialog extends javax.swing.JDialog {
 

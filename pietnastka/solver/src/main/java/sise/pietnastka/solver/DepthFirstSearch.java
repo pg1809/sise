@@ -8,7 +8,6 @@ import java.util.Stack;
 /**
  * Klasa reprezentująca algorytm DFS.
  *
- * @author PiotrGrzelak
  */
 public class DepthFirstSearch extends AbstractSearch {
 

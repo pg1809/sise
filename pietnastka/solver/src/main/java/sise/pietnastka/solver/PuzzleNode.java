@@ -10,7 +10,6 @@ import java.util.Map;
 
 /**
  * Klasa reprezentująca stan planszy z grą.
- * @author PiotrGrzelak
  */
 public class PuzzleNode implements Serializable {
     
