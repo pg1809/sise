@@ -1,5 +1,6 @@
 package sise.pietnastka.solver;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,10 +38,10 @@ public class DepthFirstSearch extends AbstractSearch {
         statesOpen = 1;
 
         statesClosed = 0;
-        Set<PuzzleNode> closed = new HashSet<>();
+        HashMap<String, PuzzleNode> closed = new HashMap<>();
         while (!open.isEmpty()) {
             PuzzleNode node = open.pop();
-            closed.add(node);
+            closed.put(node.getStringHash(), node);
             statesClosed++;
 
             Transition trans = node.getTransition();
@@ -51,7 +52,7 @@ public class DepthFirstSearch extends AbstractSearch {
                 PuzzleNode successor = new PuzzleNode(node);
                 move.execute(successor);
 
-                if (closed.contains(successor)) {
+                if (closed.get(successor.getStringHash()) != null) {
                     continue;
                 }
 

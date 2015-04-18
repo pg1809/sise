@@ -126,6 +126,16 @@ public class PuzzleNode implements Serializable {
         hash = 97 * hash + Arrays.deepHashCode(this.board);
         return hash;
     }
+    
+    public String getStringHash() {
+        StringBuilder hash = new StringBuilder();
+        for (int i = 0; i < board.length; ++i) {
+            for (int j = 0; j < board.length; ++j) {
+                hash.append(board[i][j]).append(',');
+            }
+        }
+        return hash.toString();
+    }
 
     public int getScore() {
         return score;
