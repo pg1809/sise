@@ -157,7 +157,7 @@ public class Fifteen {
         }
     }
 
-    private static PuzzleNode createGoalNode(int w, int k) {
+    public static PuzzleNode createGoalNode(int w, int k) {
         int[][] goalArray = new int[w][];
 
         for (int i = 0; i < goalArray.length; ++i) {
@@ -171,7 +171,7 @@ public class Fifteen {
         return new PuzzleNode(goalArray);
     }
 
-    private static PuzzleNode readStartingNode(int w, int k, Scanner scanner) {
+    public static PuzzleNode readStartingNode(int w, int k, Scanner scanner) {
         int[][] array = new int[w][];
 
         for (int i = 0; i < array.length; ++i) {

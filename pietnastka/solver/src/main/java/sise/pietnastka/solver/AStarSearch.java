@@ -35,8 +35,8 @@ public class AStarSearch extends AbstractSearch {
         statesOpen = 1;
 
         // zbiór stanów odwiedzonych, dla szybkości znajdowania elementów wybrałem zbiór hashujący,
-        // niestety HashSet, nie ma metod pozwalających na wyciąganie elementów ze zbioru :(
-        // więc trzeba było użyć hashmapy, i tu ciekawostka, biblioteczny HashSet sam pod spodem ma HashMap :D
+        // niestety HashSet, nie ma metod pozwalających na wyciąganie elementów ze zbioru
+        // więc trzeba było użyć hashmapy, i tu ciekawostka, biblioteczny HashSet sam pod spodem ma HashMap
         HashMap<PuzzleNode, PuzzleNode> closed = new HashMap<>();
         while (!open.isEmpty()) {
 
@@ -76,7 +76,6 @@ public class AStarSearch extends AbstractSearch {
                     // to usuwamy go ze zbioru stanów przetworzonych i później dodajemy do zbioru stanów do przetworzenia,
                     // ale już z nową, lepszą oceną
                     closed.remove(past);
-                    statesClosed--;
                 }
 
                 open.add(successor);

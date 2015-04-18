@@ -32,7 +32,7 @@ public class PuzzlesGenerator {
         Queue<StateNode> nodesQueue = new LinkedList<>();
         Set<StateNode> processedStates = new HashSet<>();
         nodesQueue.add(initial);
-        
+
         int statesInList = 0;
         while (!nodesQueue.isEmpty()) {
             StateNode node = nodesQueue.poll();
@@ -142,5 +142,16 @@ public class PuzzlesGenerator {
             final StateNode other = (StateNode) obj;
             return Arrays.deepEquals(this.state, other.state);
         }
+    }
+
+    public static String stateToString(int[][] boardState) {
+        StringBuilder builder = new StringBuilder();
+        for (int[] row : boardState) {
+            for (int cell : row) {
+                builder.append(cell).append(" ");
+            }
+        }
+
+        return builder.toString();
     }
 }
