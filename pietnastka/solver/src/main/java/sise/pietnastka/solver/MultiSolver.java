@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class MultiSolver {
 
-    private final static int MAX_DEPTH = 20;
+    private final static int MAX_DEPTH = 80;
 
     private final static Logger logger = Logger.getLogger(MultiSolver.class.getName());
 
@@ -30,18 +28,33 @@ public class MultiSolver {
         int rows = Integer.parseInt(args[0]);
         int columns = Integer.parseInt(args[1]);
 
+        String method = "";
+
         switch (args[2]) {
             case "-b":
             case "--bfs":
                 strategy = new BreadthFirstSearch();
+                method = "bfs";
                 break;
             case "-d":
             case "--dfs":
-                strategy = new DepthFirstSearch(MAX_DEPTH);
+                if (args.length > 3) {
+                    strategy = new DepthFirstSearch(Integer.parseInt(args[3]));
+                    method = "dfs" + Integer.parseInt(args[3]);
+                } else {
+                    strategy = new DepthFirstSearch(MAX_DEPTH);
+                    method = "dfs" + MAX_DEPTH;
+                }
                 break;
             case "-i":
             case "--idfs":
-                strategy = new IterativeDeepeningSearch(MAX_DEPTH);
+                if (args.length > 3) {
+                    strategy = new IterativeDeepeningSearch(Integer.parseInt(args[3]));
+                    method = "idfs" + Integer.parseInt(args[3]);
+                } else {
+                    strategy = new IterativeDeepeningSearch(MAX_DEPTH);
+                    method = "idfs" + MAX_DEPTH;
+                }
                 break;
             case "-a":
             case "--a":
@@ -55,9 +68,11 @@ public class MultiSolver {
                 switch (args[4]) {
                     case "1":
                         ((AStarSearch) strategy).setScoringFunction(new Evaluator(rows, columns));
+                        method = "man";
                         break;
                     case "2":
                         ((AStarSearch) strategy).setScoringFunction(new CollisionEvaluator(rows, columns));
+                        method = "linear";
                         break;
                     default:
                         logger.log(Level.SEVERE, "Niepoprawny identyfikator heurystyki: {0}", args[4]);
@@ -76,16 +91,36 @@ public class MultiSolver {
 
         File solutionsDirectory = new File("D:\\Studia\\SISE\\solutions\\" + rows + "x" + columns);
 
+        File algorithmDirectory = new File(solutionsDirectory.getAbsoluteFile() + "\\" + method);
+        if (!algorithmDirectory.mkdir()) {
+            logger.log(Level.SEVERE, "Couldn''t create algorithm directory: {0}", algorithmDirectory.getAbsoluteFile());
+        }
+
         for (File puzzle : puzzles) {
             System.out.println(puzzle.getName());
 
-            FileOutputStream outputInfo = null;
+            FileOutputStream summaryOutput = null;
             try {
-                outputInfo = new FileOutputStream(new File(solutionsDirectory.getAbsoluteFile() + "\\" + puzzle.getName() + ".log"));
+                summaryOutput = new FileOutputStream(new File(algorithmDirectory.getAbsoluteFile() + "\\" + puzzle.getName() + "-summary.log"));
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(MultiSolver.class.getName()).log(Level.SEVERE, null, ex);
             }
+            PrintWriter summaryWriter = new PrintWriter(summaryOutput);
 
+            int allPuzzles = 0;
+            int solvedPuzzles = 0;
+            long openStatesSum = 0;
+            long closedStatesSum = 0;
+            long maxDepthSum = 0;
+            long solutionsOverallLength = 0;
+            long overallTime = 0;
+
+            FileOutputStream outputInfo = null;
+            try {
+                outputInfo = new FileOutputStream(new File(algorithmDirectory.getAbsoluteFile() + "\\" + puzzle.getName() + ".log"));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MultiSolver.class.getName()).log(Level.SEVERE, null, ex);
+            }
             PrintWriter writer = new PrintWriter(outputInfo);
 
             Scanner scanner;
@@ -98,32 +133,62 @@ public class MultiSolver {
 
             List<Solution> solutions = new ArrayList<>();
             while (scanner.hasNext()) {
+                ++allPuzzles;
+                
                 rows = scanner.nextInt();
                 columns = scanner.nextInt();
 
                 PuzzleNode goalNode = Fifteen.createGoalNode(rows, columns);
                 PuzzleNode startingNode = Fifteen.readStartingNode(rows, columns, scanner);
 
+                long startTime = System.nanoTime();
                 Solution solution = strategy.search(startingNode, goalNode, "R");
+                long stopTime = System.nanoTime();
+
                 if (solution != null) {
                     solutions.add(solution);
+                    ++solvedPuzzles;
+                    solutionsOverallLength += solution.getMoves().size();
+
+                    writer.append("" + solution.getMoves().size());
                     solution.getMoves().forEach(System.out::print);
                     System.out.println();
                 } else {
+                    writer.append("-1");
                     System.out.println(-1);
                 }
 
-                writer.append(strategy.getStatesOpen() + " " + strategy.getStatesClosed() + " " + strategy.getMaximumDepth() + "\n");
+                openStatesSum += strategy.getStatesOpen();
+                closedStatesSum += strategy.getStatesClosed();
+                maxDepthSum += strategy.getMaximumDepth();
+                overallTime += stopTime - startTime;
+
+                writer.append(" " + strategy.getStatesOpen() + " "
+                        + strategy.getStatesClosed() + " "
+                        + strategy.getMaximumDepth() + " "
+                        + (stopTime - startTime) + "\n");
             }
 
             writer.flush();
 
-            File solutionFile = new File(solutionsDirectory.getAbsoluteFile() + "\\" + puzzle.getName());
-            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(solutionFile))) {
-                out.writeObject(solutions);
-            } catch (IOException ex) {
-                logger.log(Level.SEVERE, null, ex);
-            }
+            StringBuilder summary = new StringBuilder();
+            summary.append(allPuzzles).append(" ").append(solvedPuzzles).append(" ")
+                    .append((double) solutionsOverallLength / solvedPuzzles).append(" ")
+                    .append((double) openStatesSum / solvedPuzzles).append(" ")
+                    .append((double) closedStatesSum / solvedPuzzles).append(" ")
+                    .append((double) maxDepthSum / solvedPuzzles).append(" ")
+                    .append((double) overallTime / solvedPuzzles).append("\n");
+
+            summaryWriter.append(summary.toString()).append(" ");
+            summaryWriter.flush();
+
+//            File solutionFile = new File(solutionsDirectory.getAbsoluteFile() + "\\" + puzzle.getName());
+//            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(solutionFile))) {
+//                out.writeObject(solutions);
+//            } catch (IOException ex) {
+//                logger.log(Level.SEVERE, null, ex);
+//            }
         }
+
     }
 }
