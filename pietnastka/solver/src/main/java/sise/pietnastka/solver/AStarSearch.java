@@ -33,6 +33,7 @@ public class AStarSearch extends AbstractSearch {
         scoringFunction.giveScoreToState(copy);
         open.add(copy);
         statesOpen = 1;
+        statesClosed = 0;
 
         // zbiór stanów odwiedzonych, dla szybkości znajdowania elementów wybrałem zbiór hashujący,
         // niestety HashSet, nie ma metod pozwalających na wyciąganie elementów ze zbioru

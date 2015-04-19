@@ -20,8 +20,8 @@ public class DatasetGenerator {
     private final static Logger logger = Logger.getLogger(DatasetGenerator.class.getName());
 
     public static void main(String[] args) {
-        int rows = 6;
-        int columns = 8;
+        int rows = 4;
+        int columns = 4;
 
         File sizeDirectory = new File(rows + "x" + columns);
         if (!sizeDirectory.isDirectory()) {
@@ -34,8 +34,8 @@ public class DatasetGenerator {
 //        int minDistance = Integer.parseInt(args[0]);
 //        int maxDistance = Integer.parseInt(args[1]);
         
-        int minDistance = 0;
-        int maxDistance = 20;
+        int minDistance = 21;
+        int maxDistance = 40;
 
         for (int distance = minDistance; distance <= maxDistance; ++distance) {
             int limit = 10;
