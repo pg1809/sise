@@ -92,6 +92,8 @@ public class Fifteen {
         if (args.length == 3) {
             if (searchAlgorithm instanceof DepthFirstSearch) {
                 ((DepthFirstSearch) searchAlgorithm).setDepthBound(Integer.parseInt(args[2]));
+            } else if (searchAlgorithm instanceof IterativeDeepeningSearch) {
+                ((IterativeDeepeningSearch) searchAlgorithm).setMaxDepth(Integer.parseInt(args[2]));
             } else if (!(searchAlgorithm instanceof AStarSearch)) {
                 System.out.println("Za duża liczba parametrów");
                 return;

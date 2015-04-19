@@ -51,7 +51,7 @@ public class DepthFirstSearch extends AbstractSearch {
 
                 PuzzleNode successor = new PuzzleNode(node);
                 move.execute(successor);
-
+                
                 if (closed.get(successor.getStringHash()) != null) {
                     continue;
                 }

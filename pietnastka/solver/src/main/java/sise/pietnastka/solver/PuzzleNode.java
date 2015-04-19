@@ -18,7 +18,7 @@ public class PuzzleNode implements Serializable {
     private final int[][] board;
 
     private int score;
-
+    
     private Transition transition;
 
     private static final Map<Character, int[]> deltas;
@@ -168,7 +168,7 @@ public class PuzzleNode implements Serializable {
     public int getColumnsNum() {
         return board[0].length;
     }
-
+    
     private void addToMovesListIfValid(List<Move> moves, int[] delta, int blankRow, int blankColumn) {
         int deltaRow = delta[0];
         int deltaColumn = delta[1];
