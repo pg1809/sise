@@ -1,15 +1,18 @@
-package sise.pietnastka.solver;
+package sise.pietnastka.solver.evaluator;
+
+import sise.pietnastka.solver.PuzzleNode;
+import sise.pietnastka.solver.Transition;
 
 /**
  * Klasa przeprowadzająca ewaluacje stanu planszy na potrzeby algorytmu A*.
  * Wykorzystana heurystyka to Manhattan.
  * 
  */
-public class Evaluator {
+public class ManhattanEvaluator implements Evaluator {
 
     protected final int[][] positionsOfNumbers;
 
-    public Evaluator(int m, int n) {
+    public ManhattanEvaluator(int m, int n) {
         positionsOfNumbers = new int[m * n][2];
         positionsOfNumbers[0][0] = m - 1;
         positionsOfNumbers[0][1] = n - 1;
@@ -20,10 +23,7 @@ public class Evaluator {
         }
     }
     
-    /**
-     * Przypisuje podanemu stanowi obliczoną liczbę punktów
-     * @param state stan do oceny
-     */
+    @Override
     public void giveScoreToState(PuzzleNode state) {
         state.setScore(evaluate(state));
     }

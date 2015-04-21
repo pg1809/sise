@@ -5,6 +5,13 @@
  */
 package sise.pietnastka.solver;
 
+import sise.pietnastka.solver.strategy.IterativeDeepeningSearch;
+import sise.pietnastka.solver.strategy.DepthFirstSearch;
+import sise.pietnastka.solver.strategy.AbstractSearch;
+import sise.pietnastka.solver.strategy.AStarSearch;
+import sise.pietnastka.solver.strategy.BreadthFirstSearch;
+import sise.pietnastka.solver.evaluator.ManhattanEvaluator;
+import sise.pietnastka.solver.evaluator.ConflictEvaluator;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -116,10 +123,10 @@ public class Fifteen {
             if (searchAlgorithm instanceof AStarSearch) {
                 switch (args[2]) {
                     case "1":
-                        ((AStarSearch) searchAlgorithm).setScoringFunction(new Evaluator(w, k));
+                        ((AStarSearch) searchAlgorithm).setScoringFunction(new ManhattanEvaluator(w, k));
                         break;
                     case "2":
-                        ((AStarSearch) searchAlgorithm).setScoringFunction(new CollisionEvaluator(w, k));
+                        ((AStarSearch) searchAlgorithm).setScoringFunction(new ConflictEvaluator(w, k));
                         break;
                 }
             }

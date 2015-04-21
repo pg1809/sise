@@ -1,8 +1,13 @@
-package sise.pietnastka.solver;
+package sise.pietnastka.solver.strategy;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
+import sise.pietnastka.solver.Move;
+import sise.pietnastka.solver.PuzzleNode;
+import sise.pietnastka.solver.Solution;
+import sise.pietnastka.solver.Transition;
+import sise.pietnastka.solver.evaluator.Evaluator;
 
 /**
  * Klasa odpowiadająca za przeszukiwanie przestrzeni stanów przy pomocy

@@ -1,12 +1,14 @@
-package sise.pietnastka.solver;
+package sise.pietnastka.solver.evaluator;
+
+import sise.pietnastka.solver.PuzzleNode;
 
 /**
  * Heurystyka liniowej kolizji.
  *
- * Każda liniowa kolizja (dwie wartości zamienione miejscami w jednym wierszu
- * dodają 2 do wyniku heurystyki Manhattan.
+ * Każdy liniowy konflikt (dwie wartości zamienione miejscami w jednym wierszu)
+ * dodaje 2 do wyniku heurystyki Manhattan.
  */
-public class CollisionEvaluator extends Evaluator {
+public class ConflictEvaluator extends ManhattanEvaluator {
 
     /**
      * Liczba wierszy.
@@ -18,7 +20,7 @@ public class CollisionEvaluator extends Evaluator {
      */
     private int n;
 
-    public CollisionEvaluator(int m, int n) {
+    public ConflictEvaluator(int m, int n) {
         super(m, n);
         this.m = m;
         this.n = n;
@@ -54,7 +56,7 @@ public class CollisionEvaluator extends Evaluator {
             }
         }
 
-        // każda liniowa kolizja dodaje co najmniej 2 ruchy do wyniku danego przez heurystykę Manhattan
+        // każdy liniowy konflikt dodaje co najmniej 2 ruchy do wyniku danego przez heurystykę Manhattan
         return manhattanHeuristic + 2 * linearCollisions;
     }
 }

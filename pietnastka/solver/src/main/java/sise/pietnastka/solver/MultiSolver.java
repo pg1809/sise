@@ -1,5 +1,12 @@
 package sise.pietnastka.solver;
 
+import sise.pietnastka.solver.strategy.IterativeDeepeningSearch;
+import sise.pietnastka.solver.strategy.DepthFirstSearch;
+import sise.pietnastka.solver.strategy.AbstractSearch;
+import sise.pietnastka.solver.strategy.AStarSearch;
+import sise.pietnastka.solver.strategy.BreadthFirstSearch;
+import sise.pietnastka.solver.evaluator.ManhattanEvaluator;
+import sise.pietnastka.solver.evaluator.ConflictEvaluator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sise.pietnastka.solver.evaluator.MisplacedEvaluator;
 
 /**
  *
@@ -67,12 +75,16 @@ public class MultiSolver {
 
                 switch (args[4]) {
                     case "1":
-                        ((AStarSearch) strategy).setScoringFunction(new Evaluator(rows, columns));
+                        ((AStarSearch) strategy).setScoringFunction(new ManhattanEvaluator(rows, columns));
                         method = "man";
                         break;
                     case "2":
-                        ((AStarSearch) strategy).setScoringFunction(new CollisionEvaluator(rows, columns));
+                        ((AStarSearch) strategy).setScoringFunction(new ConflictEvaluator(rows, columns));
                         method = "linear";
+                        break;
+                    case "3":
+                        ((AStarSearch) strategy).setScoringFunction(new MisplacedEvaluator(rows, columns));
+                        method = "misplaced";
                         break;
                     default:
                         logger.log(Level.SEVERE, "Niepoprawny identyfikator heurystyki: {0}", args[4]);
@@ -134,7 +146,7 @@ public class MultiSolver {
             List<Solution> solutions = new ArrayList<>();
             while (scanner.hasNext()) {
                 ++allPuzzles;
-                
+
                 rows = scanner.nextInt();
                 columns = scanner.nextInt();
 

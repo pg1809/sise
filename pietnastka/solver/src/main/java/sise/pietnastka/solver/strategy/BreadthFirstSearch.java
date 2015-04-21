@@ -1,10 +1,14 @@
-package sise.pietnastka.solver;
+package sise.pietnastka.solver.strategy;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import sise.pietnastka.solver.Move;
+import sise.pietnastka.solver.PuzzleNode;
+import sise.pietnastka.solver.Solution;
+import sise.pietnastka.solver.Transition;
 
 /**
  * Klasa reprezentująca algorytm BFS.

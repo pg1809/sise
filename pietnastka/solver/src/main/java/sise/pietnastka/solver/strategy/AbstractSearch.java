@@ -1,4 +1,7 @@
-package sise.pietnastka.solver;
+package sise.pietnastka.solver.strategy;
+
+import sise.pietnastka.solver.PuzzleNode;
+import sise.pietnastka.solver.Solution;
 
 /**
  * Abstrakcyjna klasa reprezentująca algorytm przeszukiwania drzewa gry

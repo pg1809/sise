@@ -3,10 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sise.pietnastka.solver;
+package sise.pietnastka.solver.strategy;
 
 import java.util.List;
 import java.util.Stack;
+import sise.pietnastka.solver.Move;
+import sise.pietnastka.solver.PuzzleNode;
+import sise.pietnastka.solver.Solution;
+import sise.pietnastka.solver.Transition;
 
 /**
  *
