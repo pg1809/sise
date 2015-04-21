@@ -86,9 +86,9 @@ public class Fifteen {
                 return;
             }
 
-            int heuristicId = 0;
+            int heuristicId;
             try {
-                Integer.parseInt(args[2]);
+                heuristicId = Integer.parseInt(args[2]);
             } catch (NumberFormatException ex) {
                 heuristicId = -1;
             }
