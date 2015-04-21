@@ -31,7 +31,7 @@ public class MisplacedEvaluator implements Evaluator {
             for (int j = 0; j < n; ++j) {
                 // jeżeli nie jesteśmy na ostatniej pozycji, gdzie powinno być
                 // puste miejsce, to sprawdzamy, czy klocek jest na właściwym miejscu
-                if ((i != m || j != n) && state.getCell(i, j) != i * n + j + 1) {
+                if ((i != m - 1 || j != n - 1) && state.getCell(i, j) != i * n + j + 1) {
                     ++score;
                 }
             }

@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Wojciech SzaĹ‚apski
+ * @author Wojciech Szałapski
  */
 public class DataGatherer {
 
