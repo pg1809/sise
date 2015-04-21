@@ -25,6 +25,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import sise.pietnastka.solver.evaluator.MisplacedEvaluator;
 
 /**
  *
@@ -85,7 +86,13 @@ public class Fifteen {
                 return;
             }
 
-            if (!args[2].equals("1") && !args[2].equals("2")) {
+            int heuristicId = 0;
+            try {
+                Integer.parseInt(args[2]);
+            } catch (NumberFormatException ex) {
+                heuristicId = -1;
+            }
+            if (heuristicId < 1 || heuristicId > 3) {
                 System.out.println("Niepoprawny identyfikator heurystyki");
                 return;
             }
@@ -127,6 +134,9 @@ public class Fifteen {
                         break;
                     case "2":
                         ((AStarSearch) searchAlgorithm).setScoringFunction(new ConflictEvaluator(w, k));
+                        break;
+                    case "3":
+                        ((AStarSearch) searchAlgorithm).setScoringFunction(new MisplacedEvaluator(w, k));
                         break;
                 }
             }
