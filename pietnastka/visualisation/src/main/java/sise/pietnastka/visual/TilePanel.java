@@ -5,6 +5,7 @@
  */
 package sise.pietnastka.visual;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -32,13 +33,16 @@ public class TilePanel extends javax.swing.JPanel {
         this.setLayout(new FlowLayout());
         this.add(numberLabel);
         this.setSize(TILE_WIDTH, TILE_HEIGHT);
-        
+        this.setAlignmentX(CENTER_ALIGNMENT);
+        this.setAlignmentY(CENTER_ALIGNMENT);
     }
 
     public void setNumber(int number) {
         if (number == 0) {
+            setBackground(Color.gray);
             numberLabel.setText("");
         } else {
+            setBackground(Color.white);
             numberLabel.setText(String.valueOf(number));
         }
         repaint();

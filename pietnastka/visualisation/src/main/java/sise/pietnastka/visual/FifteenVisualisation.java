@@ -30,6 +30,9 @@ public class FifteenVisualisation extends javax.swing.JFrame {
     public FifteenVisualisation() {
         initComponents();
         solvedPuzzles = new ArrayList<>();
+        Utils.centerWindow(this);
+        setResizable(false);
+        setTitle("Piętnastka");
     }
 
     /**
@@ -121,6 +124,9 @@ public class FifteenVisualisation extends javax.swing.JFrame {
         }
         
         PuzzleDialog dialog = new PuzzleDialog(this, solution);
+        dialog.setTitle("Piętnastka - wizualizacja");
+        Utils.centerWindow(dialog);
+        dialog.setResizable(false);
         dialog.setVisible(true);
         dialog.startSimulation();
     }//GEN-LAST:event_startSimulationButtonActionPerformed
