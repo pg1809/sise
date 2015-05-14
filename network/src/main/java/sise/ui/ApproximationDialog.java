@@ -5,7 +5,6 @@
  */
 package sise.ui;
 
-import java.awt.Frame;
 import sise.network.MultiLayerNetwork;
 import sise.network.exceptions.CannotCreateNetworkException;
 import sise.network.factory.MultiLayerNetworkFactory;
@@ -26,6 +25,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import sise.network.normalization.MinMaxInputNormalizer;
+import sise.network.normalization.NumericInputNormalizer;
+import sise.ui.generator.TrainingDataGenerator;
 import sise.ui.plot.ResultsPlotData;
 
 /**
@@ -44,19 +46,26 @@ public class ApproximationDialog extends javax.swing.JDialog {
 
     private int outputNeurons;
 
+    private final static NumericInputNormalizer normalizer
+            = new MinMaxInputNormalizer(TrainingDataGenerator.MINIMUM,
+                    TrainingDataGenerator.MAXIMUM);
+
     /**
      * Creates new form ApproximationDialog
+     *
+     * @param parent
+     * @param modal
      */
     public ApproximationDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         generator = new PlotGenerator();
         initComponents();
 
-        setTitle("Rankingowanie kierowców");
+        setTitle("Aproksymacja funkcji");
 
         networkCreationParamsPanel.fixNetworkInputsField(1);
         networkCreationParamsPanel.fixNetworkOutputField(1);
-        learningParamsInputPanel.setDefaultLearningRate(0.2);
+        learningParamsInputPanel.setDefaultLearningRate(0.1);
     }
 
     /**
@@ -178,7 +187,7 @@ public class ApproximationDialog extends javax.swing.JDialog {
             File chosenFile = trainingDataFileChooser.getSelectedFile();
 
             TrainingDataProvider provider = new TrainingDataProvider(
-                    chosenFile, inputNeurons, outputNeurons, " ");
+                    chosenFile, inputNeurons, outputNeurons, " ", normalizer);
             List<InputRow> trainingData = provider.provideAllRows();
 
             int maxEpochNum = learningParamsInputPanel.getMaximumEpochNumber();
@@ -216,7 +225,7 @@ public class ApproximationDialog extends javax.swing.JDialog {
             File chosenFile = trainingDataFileChooser.getSelectedFile();
 
             TrainingDataProvider provider = new TrainingDataProvider(
-                    chosenFile, inputNeurons, outputNeurons, " ");
+                    chosenFile, inputNeurons, outputNeurons, " ", normalizer);
             List<InputRow> trainingData = provider.provideAllRows();
 
             List<double[]> networkResults = new ArrayList<>(trainingData.size());

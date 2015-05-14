@@ -99,13 +99,13 @@ public class LearningParamsInputPanel extends javax.swing.JPanel {
 
         errorThresholdLabel.setText("Docelowy błąd:");
 
-        momentumFactorInput.setText("0.1");
+        momentumFactorInput.setText("0.8");
 
         learningRateInput.setText("0.05");
 
-        maxEpochNumInput.setText("1000");
+        maxEpochNumInput.setText("10000");
 
-        errorThresholdInput.setText("0.01");
+        errorThresholdInput.setText("0.001");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -119,18 +119,18 @@ public class LearningParamsInputPanel extends javax.swing.JPanel {
                             .addComponent(momentumFactorLabel)
                             .addComponent(learningRateLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(learningRateInput, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(momentumFactorInput)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(momentumFactorInput)
+                            .addComponent(learningRateInput)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(maxEpochNumLabel)
                             .addComponent(errorThresholdLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(maxEpochNumInput, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                            .addComponent(errorThresholdInput))))
-                .addContainerGap(202, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(errorThresholdInput)
+                            .addComponent(maxEpochNumInput, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

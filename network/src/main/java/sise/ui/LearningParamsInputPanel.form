@@ -25,9 +25,9 @@
                           <Component id="learningRateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="learningRateInput" pref="40" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="momentumFactorInput" max="32767" attributes="0"/>
+                          <Component id="learningRateInput" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -36,13 +36,13 @@
                           <Component id="errorThresholdLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="maxEpochNumInput" pref="41" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="errorThresholdInput" max="32767" attributes="0"/>
+                          <Component id="maxEpochNumInput" pref="51" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="202" max="32767" attributes="0"/>
+              <EmptySpace pref="192" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,7 +97,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="momentumFactorInput">
       <Properties>
-        <Property name="text" type="java.lang.String" value="0.1"/>
+        <Property name="text" type="java.lang.String" value="0.8"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="learningRateInput">
@@ -107,12 +107,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="maxEpochNumInput">
       <Properties>
-        <Property name="text" type="java.lang.String" value="1000"/>
+        <Property name="text" type="java.lang.String" value="10000"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="errorThresholdInput">
       <Properties>
-        <Property name="text" type="java.lang.String" value="0.01"/>
+        <Property name="text" type="java.lang.String" value="0.001"/>
       </Properties>
     </Component>
   </SubComponents>

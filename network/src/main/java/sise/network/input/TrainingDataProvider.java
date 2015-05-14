@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import sise.network.normalization.NumericInputNormalizer;
 
 /**
  *
@@ -14,12 +15,10 @@ public class TrainingDataProvider implements InputProvider {
 
     protected List<InputRow> dataset;
 
-    int nextRow = 0;
+    private int nextRow = 0;
 
-    protected TrainingDataProvider() {
-    }
-
-    public TrainingDataProvider(File inputFile, int inputs, int outputs, String separator) throws IOException {
+    public TrainingDataProvider(File inputFile, int inputs, int outputs,
+            String separator, NumericInputNormalizer normalizer) throws IOException {
         Scanner sc = new Scanner(inputFile);
 
         dataset = new ArrayList<>();
@@ -30,7 +29,7 @@ public class TrainingDataProvider implements InputProvider {
 
             double[] inputValues = new double[inputs];
             for (int i = 0; i < inputs; ++i) {
-                inputValues[i] = Double.parseDouble(stringNums[i]);
+                inputValues[i] = normalizer.normalize(Double.parseDouble(stringNums[i]));
             }
 
             double[] outputValues = new double[outputs];
