@@ -5,6 +5,7 @@
  */
 package sise.ui;
 
+import java.awt.Cursor;
 import sise.network.MultiLayerNetwork;
 import sise.network.exceptions.CannotCreateNetworkException;
 import sise.network.factory.MultiLayerNetworkFactory;
@@ -186,6 +187,8 @@ public class ApproximationDialog extends javax.swing.JDialog {
 
             File chosenFile = trainingDataFileChooser.getSelectedFile();
 
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
             TrainingDataProvider provider = new TrainingDataProvider(
                     chosenFile, inputNeurons, outputNeurons, " ", normalizer);
             List<InputRow> trainingData = provider.provideAllRows();
@@ -204,9 +207,13 @@ public class ApproximationDialog extends javax.swing.JDialog {
                     .generateName();
 
             generator.generateErrorChart(meanSquaredError, plotFileName);
+
+            JOptionPane.showMessageDialog(this, "Trening został zakończony");
         } catch (EmptyInputFieldException | IOException ex) {
             Logger.getLogger(ApproximationDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_trainNetworkButtonActionPerformed
 
     private void testNetworkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testNetworkButtonActionPerformed
@@ -232,6 +239,14 @@ public class ApproximationDialog extends javax.swing.JDialog {
             trainingData.stream().forEach(
                     (InputRow row) -> networkResults.add(network.runNetwork(row.getValues()))
             );
+            
+            for (InputRow row : trainingData) {
+                double[] values = row.getValues();
+                for (int i = 0; i < values.length; ++i) {
+                    values[i] = normalizer.denormalize(values[i]);
+                }
+                row.setValues(values);
+            }
 
             ResultsPlotData resultsPlotData = new ResultsPlotData();
             resultsPlotData.setInputs(trainingData);

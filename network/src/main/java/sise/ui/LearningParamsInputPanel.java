@@ -99,13 +99,13 @@ public class LearningParamsInputPanel extends javax.swing.JPanel {
 
         errorThresholdLabel.setText("Docelowy błąd:");
 
-        momentumFactorInput.setText("0.8");
+        momentumFactorInput.setText("0.9");
 
-        learningRateInput.setText("0.05");
+        learningRateInput.setText("0.1");
 
-        maxEpochNumInput.setText("10000");
+        maxEpochNumInput.setText("1000");
 
-        errorThresholdInput.setText("0.001");
+        errorThresholdInput.setText("0.0001");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

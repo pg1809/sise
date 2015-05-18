@@ -19,4 +19,9 @@ public class MinMaxInputNormalizer implements NumericInputNormalizer {
     public double normalize(double x) {
         return (x - min) / span;
     }
+
+    @Override
+    public double denormalize(double x) {
+        return x  * span + min;
+    }
 }
