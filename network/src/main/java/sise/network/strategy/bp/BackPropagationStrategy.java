@@ -9,7 +9,7 @@ import java.util.List;
  * @author Wojciech Szałapski
  */
 public class BackPropagationStrategy extends BasicNeuronStrategy {
-    
+
     protected BackPropagationStrategy() {
     }
 
@@ -21,7 +21,7 @@ public class BackPropagationStrategy extends BasicNeuronStrategy {
 
         private static final BackPropagationStrategy INSTANCE = new BackPropagationStrategy();
     }
-    
+
     @Override
     public double transfer(double netValue) {
         return (1 / (1 + Math.exp(-netValue)));
@@ -30,7 +30,7 @@ public class BackPropagationStrategy extends BasicNeuronStrategy {
     @Override
     public void updateDelta(AbstractNeuron neuron, Double expectedOutput, double learningRate) {
         double error = 0;
-        
+
         if (neuron.isOutputNeuron()) {
             error = expectedOutput - neuron.getOutput();
         } else {
@@ -40,7 +40,7 @@ public class BackPropagationStrategy extends BasicNeuronStrategy {
                 error += forwardNeurons.get(i).getDelta() * neuron.findForwardConnectionWeight(i);
             }
         }
-        
+
         neuron.setDelta(learningRate * error * neuron.getOutput() * (1 - neuron.getOutput()));
     }
 

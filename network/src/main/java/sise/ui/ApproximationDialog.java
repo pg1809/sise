@@ -17,7 +17,6 @@ import sise.network.strategy.bp.IdentityActivationBPS;
 import sise.network.training.ThresholdEpochNetworkTrainer;
 import sise.ui.exceptions.EmptyInputFieldException;
 import sise.ui.plot.PlotGenerator;
-import sise.ui.plot.PlotNamer;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +46,10 @@ public class ApproximationDialog extends javax.swing.JDialog {
 
     private int outputNeurons;
 
+    private double learningRate;
+
+    private double momentumFactor;
+
     private final static NumericInputNormalizer normalizer
             = new MinMaxInputNormalizer(TrainingDataGenerator.MINIMUM,
                     TrainingDataGenerator.MAXIMUM);
@@ -66,7 +69,6 @@ public class ApproximationDialog extends javax.swing.JDialog {
 
         networkCreationParamsPanel.fixNetworkInputsField(1);
         networkCreationParamsPanel.fixNetworkOutputField(1);
-        learningParamsInputPanel.setDefaultLearningRate(0.1);
     }
 
     /**
@@ -178,7 +180,8 @@ public class ApproximationDialog extends javax.swing.JDialog {
         }
 
         try {
-            JFileChooser trainingDataFileChooser = new JFileChooser(".");
+            JFileChooser trainingDataFileChooser
+                    = new JFileChooser(new File("C:\\Users\\Ardavel\\Desktop\\data"));
             int result = trainingDataFileChooser.showOpenDialog(this);
 
             if (result == JFileChooser.CANCEL_OPTION) {
@@ -194,19 +197,27 @@ public class ApproximationDialog extends javax.swing.JDialog {
             List<InputRow> trainingData = provider.provideAllRows();
 
             int maxEpochNum = learningParamsInputPanel.getMaximumEpochNumber();
-            double learningRate = learningParamsInputPanel.getLearningRate();
-            double momentumFactor = learningParamsInputPanel.getMomentumFactor();
+            learningRate = learningParamsInputPanel.getLearningRate();
+            momentumFactor = learningParamsInputPanel.getMomentumFactor();
             double error = learningParamsInputPanel.getErrorThreshold();
 
             ThresholdEpochNetworkTrainer trainer
                     = new ThresholdEpochNetworkTrainer(maxEpochNum, error, learningRate, momentumFactor);
             List<Double> meanSquaredError = trainer.trainNetwork(network, trainingData);
 
-            String plotFileName = new PlotNamer().setBaseName("error").setEpochs(meanSquaredError.size()).setHiddenNeurons(hiddenNeurons)
-                    .setLearningRate(learningRate).setMomentumFactor(momentumFactor)
-                    .generateName();
+//            String plotFileName = new PlotNamer().setBaseName("error").setEpochs(meanSquaredError.size()).setHiddenNeurons(hiddenNeurons)
+//                    .setLearningRate(learningRate).setMomentumFactor(momentumFactor)
+//                    .generateName();
+            String description = "N" + hiddenNeurons + "-L" + learningRate + "-M"
+                    + momentumFactor;
+            String plotFileName = "C:\\Users\\Ardavel\\Desktop\\results\\"
+                    + description + " - " + trainingData.size() + ".png";
 
             generator.generateErrorChart(meanSquaredError, plotFileName);
+//            System.out.printf("%s %d %.5f\n", description, meanSquaredError.size(),
+//                    meanSquaredError.get(meanSquaredError.size() - 1));
+            System.out.printf("%d %.5f ", meanSquaredError.size(),
+                    meanSquaredError.get(meanSquaredError.size() - 1));
 
             JOptionPane.showMessageDialog(this, "Trening został zakończony");
         } catch (EmptyInputFieldException | IOException ex) {
@@ -222,7 +233,8 @@ public class ApproximationDialog extends javax.swing.JDialog {
                 return;
             }
 
-            JFileChooser trainingDataFileChooser = new JFileChooser(".");
+            JFileChooser trainingDataFileChooser
+                    = new JFileChooser(new File("C:\\Users\\Ardavel\\Desktop\\data"));
             int result = trainingDataFileChooser.showOpenDialog(this);
 
             if (result == JFileChooser.CANCEL_OPTION) {
@@ -236,10 +248,17 @@ public class ApproximationDialog extends javax.swing.JDialog {
             List<InputRow> trainingData = provider.provideAllRows();
 
             List<double[]> networkResults = new ArrayList<>(trainingData.size());
-            trainingData.stream().forEach(
-                    (InputRow row) -> networkResults.add(network.runNetwork(row.getValues()))
-            );
-            
+            double overallError = 0;
+            for (InputRow row : trainingData) {
+                double[] output = network.runNetwork(row.getValues());
+
+                double idealOutput = Math.sqrt(normalizer.denormalize(row.getValues()[0]));
+                overallError += Math.pow(idealOutput - output[0], 2);
+
+                networkResults.add(output);
+            }
+            overallError /= trainingData.size();
+
             for (InputRow row : trainingData) {
                 double[] values = row.getValues();
                 for (int i = 0; i < values.length; ++i) {
@@ -255,7 +274,15 @@ public class ApproximationDialog extends javax.swing.JDialog {
             resultsPlotData.setyAxisLabel("function values");
             resultsPlotData.setPlotName("Approximation");
 
-            generator.generateResultsChart(resultsPlotData);
+            String description = "N" + hiddenNeurons + "-L" + learningRate + "-M"
+                    + momentumFactor;
+            String plotFileName = "C:\\Users\\Ardavel\\Desktop\\results\\chart-"
+                    + description + " - " + trainingData.size() + ".png";
+
+            generator.generateResultsChart(resultsPlotData, plotFileName);
+
+            System.out.printf("%.5f\n", overallError);
+//            System.out.printf("%s %.5f\n", description, overallError);
         } catch (IOException ex) {
             Logger.getLogger(ApproximationDialog.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
@@ -285,7 +312,6 @@ public class ApproximationDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_createNetworkButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonPanel;

@@ -13,7 +13,7 @@ public abstract class WeightsGenerator {
     }
 
     public abstract double[] generateWeights();
-    
+
     public int getInputs() {
         return inputs;
     }

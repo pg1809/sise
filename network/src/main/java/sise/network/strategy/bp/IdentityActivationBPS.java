@@ -13,22 +13,22 @@ import java.util.List;
  * @author PiotrGrzelak
  */
 public class IdentityActivationBPS extends BackPropagationStrategy {
-    
+
     private static final IdentityActivationBPS instance = new IdentityActivationBPS();
-    
+
     public static IdentityActivationBPS getInstance() {
         return instance;
     }
-    
+
     @Override
     public double transfer(double netValue) {
         return netValue;
     }
-    
+
     @Override
     public void updateDelta(AbstractNeuron neuron, Double expectedOutput, double learningRate) {
         double error = 0;
-        
+
         if (neuron.isOutputNeuron()) {
             error = expectedOutput - neuron.getOutput();
         } else {
@@ -38,7 +38,7 @@ public class IdentityActivationBPS extends BackPropagationStrategy {
                 error += forwardNeurons.get(i).getDelta() * neuron.findForwardConnectionWeight(i);
             }
         }
-        
+
         neuron.setDelta(learningRate * error);
     }
 }

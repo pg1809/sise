@@ -57,10 +57,10 @@ public class MultiLayerNetwork extends AbstractNetwork {
 
         connectLayers(hiddenLayers.get(hiddenLayers.size() - 1), outputLayer);
     }
-    
+
     public void printNetworkInputs() {
         List<Double> inputs = new ArrayList<>();
-        for (AbstractNeuron neuron: inputLayer.getNeurons()) {
+        for (AbstractNeuron neuron : inputLayer.getNeurons()) {
             inputs.add(neuron.getOutput());
         }
         System.out.println(Arrays.toString(inputs.toArray()));

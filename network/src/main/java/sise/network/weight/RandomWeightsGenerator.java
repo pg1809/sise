@@ -9,9 +9,9 @@ import java.util.Random;
 public class RandomWeightsGenerator extends WeightsGenerator {
 
     private double lowerBound;
-    
+
     private double upperBound;
-    
+
     private final Random generator = new Random();
 
     public RandomWeightsGenerator(int inputs, double lowerBound, double upperBound) {
@@ -23,12 +23,12 @@ public class RandomWeightsGenerator extends WeightsGenerator {
     @Override
     public double[] generateWeights() {
         double[] weights = new double[inputs];
-        
+
         double range = upperBound - lowerBound;
         for (int i = 0; i < inputs; ++i) {
             weights[i] = lowerBound + range * generator.nextDouble();
         }
-        
+
         return weights;
     }
 

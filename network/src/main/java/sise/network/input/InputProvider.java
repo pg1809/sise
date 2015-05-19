@@ -16,6 +16,6 @@ public interface InputProvider {
     public boolean hasMoreRows();
 
     public InputRow provideInputRow();
-    
+
     public List<InputRow> provideAllRows();
 }

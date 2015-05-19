@@ -27,11 +27,11 @@ public class ThresholdEpochNetworkTrainer extends NetworkTrainer {
     @Override
     public List<Double> trainNetwork(AbstractNetwork network, List<InputRow> trainingData) {
         generateStartingWeights(network);
-        
+
         List<Double> meanSquaredErrors = new ArrayList<>();
 
         for (int i = 0; i < maximumNumberOfEpochs; ++i) {
-            System.out.println("EPOCH " + i);
+//            System.out.println("EPOCH " + i);
             Collections.shuffle(trainingData);
 
             double error = trainNetworkWithSampleSet(network, trainingData);

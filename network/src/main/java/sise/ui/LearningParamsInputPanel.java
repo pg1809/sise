@@ -24,19 +24,19 @@ public class LearningParamsInputPanel extends javax.swing.JPanel {
     public void setDefaultLearningRate(double learningRate) {
         learningRateInput.setText(String.valueOf(learningRate));
     }
-    
+
     public void setDefaultMomentum(double momentum) {
         momentumFactorInput.setText(String.valueOf(momentum));
     }
-    
+
     public void setDefaultError(double error) {
         errorThresholdInput.setText(String.valueOf(error));
     }
-    
+
     public void setDefaultEpochNum(double epochNum) {
         maxEpochNumInput.setText(String.valueOf(epochNum));
     }
-    
+
     public double getLearningRate() throws EmptyInputFieldException {
         String learningRateParam = learningRateInput.getText();
         if (StringUtils.isEmpty(learningRateParam)) {
@@ -154,7 +154,6 @@ public class LearningParamsInputPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField errorThresholdInput;

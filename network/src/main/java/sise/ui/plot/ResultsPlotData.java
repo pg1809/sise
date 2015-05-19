@@ -13,15 +13,15 @@ import java.util.List;
  * @author PiotrGrzelak
  */
 public class ResultsPlotData {
-    
+
     private String xAxisLabel;
-    
+
     private String yAxisLabel;
-    
+
     private String plotName;
-    
+
     private List<InputRow> inputs;
-    
+
     private List<double[]> outputs;
 
     public String getxAxisLabel() {

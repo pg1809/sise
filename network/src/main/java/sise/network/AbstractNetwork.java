@@ -26,7 +26,7 @@ public abstract class AbstractNetwork {
 
     public double[] runNetwork(double[] sample) {
         readSample(sample);
-        
+
         for (NeuronLayer hiddenLayer : hiddenLayers) {
             hiddenLayer.updateOutput();
         }

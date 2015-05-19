@@ -69,7 +69,7 @@ public abstract class NetworkTrainer {
 
         network.getHiddenLayers().stream()
                 .forEach((NeuronLayer hiddenLayer) -> generateStartingWeightsForLayer(hiddenLayer, random));
-        
+
         generateStartingWeightsForLayer(network.getOutputLayer(), random);
     }
 

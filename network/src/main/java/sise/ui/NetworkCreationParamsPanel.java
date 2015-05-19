@@ -115,7 +115,6 @@ public class NetworkCreationParamsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField hiddenNeuronsInput;
     private javax.swing.JLabel hiddenNeuronsLabel;

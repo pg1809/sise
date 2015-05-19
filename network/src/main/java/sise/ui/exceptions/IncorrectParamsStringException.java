@@ -13,5 +13,5 @@ public class IncorrectParamsStringException extends Exception {
 
     public IncorrectParamsStringException() {
         super("Niepoprawny format łańcucha numerów cech obiektów");
-    } 
+    }
 }

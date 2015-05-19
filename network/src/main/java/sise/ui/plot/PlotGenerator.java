@@ -70,16 +70,20 @@ public class PlotGenerator {
 
         List<double[]> inputs = new ArrayList(data.getInputs().size());
         data.getInputs().stream().forEach(
-                (InputRow row) -> {inputs.add(row.getValues());}
-            );
-        
+                (InputRow row) -> {
+                    inputs.add(row.getValues());
+                }
+        );
+
         List<double[]> expectedOutputs = new ArrayList(data.getInputs().size());
         data.getInputs().stream().forEach(
-                (InputRow row) -> {expectedOutputs.add(row.getExpectedOutput());}
-            );
-        
+                (InputRow row) -> {
+                    expectedOutputs.add(row.getExpectedOutput());
+                }
+        );
+
         List<double[]> outputs = data.getOutputs();
-        
+
         for (int i = 0; i < inputs.size(); ++i) {
             expectedData.add(inputs.get(i)[0], expectedOutputs.get(i)[0]);
             networkData.add(inputs.get(i)[0], outputs.get(i)[0]);
@@ -98,9 +102,5 @@ public class PlotGenerator {
 
         File XYChart = new File(fileName);
         ChartUtilities.saveChartAsJPEG(XYChart, chart, chartWidth, chartHeight);
-    }
-    
-    public void generateResultsChart(ResultsPlotData data) throws IOException {
-        generateResultsChart(data, "results" + (dataChartId++) + ".png");
     }
 }

@@ -15,7 +15,7 @@ public abstract class AbstractNeuron {
     protected double output;
 
     protected double bias;
-    
+
     protected double previousBias;
 
     protected double delta;
@@ -100,7 +100,7 @@ public abstract class AbstractNeuron {
 
     public void setBias(double bias) {
         this.previousBias = this.bias;
-        
+
         this.bias = bias;
     }
 
