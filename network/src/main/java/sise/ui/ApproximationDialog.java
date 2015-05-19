@@ -50,6 +50,10 @@ public class ApproximationDialog extends javax.swing.JDialog {
 
     private double momentumFactor;
 
+    private File trainingFile;
+
+    private File testFile = new File("C:\\Users\\Ardavel\\Desktop\\data\\points = 1000 noise = 0.0.txt");
+
     private final static NumericInputNormalizer normalizer
             = new MinMaxInputNormalizer(TrainingDataGenerator.MINIMUM,
                     TrainingDataGenerator.MAXIMUM);
@@ -87,6 +91,7 @@ public class ApproximationDialog extends javax.swing.JDialog {
         buttonPanel = new javax.swing.JPanel();
         trainNetworkButton = new javax.swing.JButton();
         testNetworkButton = new javax.swing.JButton();
+        generateResultsButton = new javax.swing.JButton();
         createNetworkPanel = new javax.swing.JPanel();
         networkCreationSeparator = new javax.swing.JSeparator();
         networkCreationParamsPanel = new sise.ui.NetworkCreationParamsPanel();
@@ -116,6 +121,14 @@ public class ApproximationDialog extends javax.swing.JDialog {
         });
         buttonPanel.add(testNetworkButton);
 
+        generateResultsButton.setText("Generuj wyniki");
+        generateResultsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateResultsButtonActionPerformed(evt);
+            }
+        });
+        buttonPanel.add(generateResultsButton);
+
         createNetworkButton.setText("Stwórz sieć");
         createNetworkButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,25 +140,25 @@ public class ApproximationDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(networkCreationSeparator)
-                    .addComponent(headerSeparator)
-                    .addComponent(downSeparator)
-                    .addComponent(createNetworkButton))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(createNetworkPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(learningParamsInputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(buttonPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(networkCreationParamsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(networkCreationSeparator)
+                            .addComponent(headerSeparator)
+                            .addComponent(downSeparator)
+                            .addComponent(createNetworkButton)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(createNetworkPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(learningParamsInputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(networkCreationParamsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -180,15 +193,20 @@ public class ApproximationDialog extends javax.swing.JDialog {
         }
 
         try {
-            JFileChooser trainingDataFileChooser
-                    = new JFileChooser(new File("C:\\Users\\Ardavel\\Desktop\\data"));
-            int result = trainingDataFileChooser.showOpenDialog(this);
+            File chosenFile;
+            if (evt != null) {
+                JFileChooser trainingDataFileChooser
+                        = new JFileChooser(new File("C:\\Users\\Ardavel\\Desktop\\data"));
+                int result = trainingDataFileChooser.showOpenDialog(this);
 
-            if (result == JFileChooser.CANCEL_OPTION) {
-                return;
+                if (result == JFileChooser.CANCEL_OPTION) {
+                    return;
+                }
+
+                chosenFile = trainingDataFileChooser.getSelectedFile();
+            } else {
+                chosenFile = trainingFile;
             }
-
-            File chosenFile = trainingDataFileChooser.getSelectedFile();
 
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
@@ -219,7 +237,9 @@ public class ApproximationDialog extends javax.swing.JDialog {
             System.out.printf("%d %.5f ", meanSquaredError.size(),
                     meanSquaredError.get(meanSquaredError.size() - 1));
 
-            JOptionPane.showMessageDialog(this, "Trening został zakończony");
+            if (evt != null) {
+                JOptionPane.showMessageDialog(this, "Trening został zakończony");
+            }
         } catch (EmptyInputFieldException | IOException ex) {
             Logger.getLogger(ApproximationDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -233,15 +253,19 @@ public class ApproximationDialog extends javax.swing.JDialog {
                 return;
             }
 
-            JFileChooser trainingDataFileChooser
-                    = new JFileChooser(new File("C:\\Users\\Ardavel\\Desktop\\data"));
-            int result = trainingDataFileChooser.showOpenDialog(this);
+            File chosenFile;
+            if (evt != null) {
+                JFileChooser trainingDataFileChooser
+                        = new JFileChooser(new File("C:\\Users\\Ardavel\\Desktop\\data"));
+                int result = trainingDataFileChooser.showOpenDialog(this);
 
-            if (result == JFileChooser.CANCEL_OPTION) {
-                return;
+                if (result == JFileChooser.CANCEL_OPTION) {
+                    return;
+                }
+                chosenFile = trainingDataFileChooser.getSelectedFile();
+            } else {
+                chosenFile = testFile;
             }
-
-            File chosenFile = trainingDataFileChooser.getSelectedFile();
 
             TrainingDataProvider provider = new TrainingDataProvider(
                     chosenFile, inputNeurons, outputNeurons, " ", normalizer);
@@ -257,7 +281,7 @@ public class ApproximationDialog extends javax.swing.JDialog {
 
                 networkResults.add(output);
             }
-            overallError /= trainingData.size();
+            overallError /= trainingData.size() * 2;
 
             for (InputRow row : trainingData) {
                 double[] values = row.getValues();
@@ -302,8 +326,10 @@ public class ApproximationDialog extends javax.swing.JDialog {
             network = factory.createNetwork();
             network.getOutputLayer().getNeurons().stream().forEach((AbstractNeuron n) -> (n.setStrategy(identityStrategy)));
 
-            JOptionPane.showMessageDialog(this, "Tworzenie sieci zakończone sukcesem", "Sukces",
-                    JOptionPane.INFORMATION_MESSAGE);
+            if (evt != null) {
+                JOptionPane.showMessageDialog(this, "Tworzenie sieci zakończone sukcesem", "Sukces",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
 
             trainNetworkButton.setEnabled(true);
             testNetworkButton.setEnabled(true);
@@ -313,11 +339,30 @@ public class ApproximationDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_createNetworkButtonActionPerformed
 
+    private void generateResultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateResultsButtonActionPerformed
+        JFileChooser trainingDataFileChooser
+                = new JFileChooser(new File("C:\\Users\\Ardavel\\Desktop\\data"));
+        int result = trainingDataFileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.CANCEL_OPTION) {
+            return;
+        }
+        trainingFile = trainingDataFileChooser.getSelectedFile();
+
+        for (int neurons = 1; neurons <= 10; ++neurons) {
+            networkCreationParamsPanel.setNetworkHiddenField(neurons);
+            createNetworkButtonActionPerformed(null);
+            trainNetworkButtonActionPerformed(null);
+            testNetworkButtonActionPerformed(null);
+        }
+    }//GEN-LAST:event_generateResultsButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JButton createNetworkButton;
     private javax.swing.JPanel createNetworkPanel;
     private javax.swing.JSeparator downSeparator;
+    private javax.swing.JButton generateResultsButton;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JSeparator headerSeparator;

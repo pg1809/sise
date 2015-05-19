@@ -118,6 +118,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testNetworkButtonActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="generateResultsButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Generuj wyniki"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generateResultsButtonActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="createNetworkPanel">

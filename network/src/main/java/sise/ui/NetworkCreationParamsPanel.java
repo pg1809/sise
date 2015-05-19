@@ -25,6 +25,10 @@ public class NetworkCreationParamsPanel extends javax.swing.JPanel {
         outputNeuronsInput.setText(String.valueOf(value));
         outputNeuronsInput.setEnabled(false);
     }
+    
+    public void setNetworkHiddenField(int value) {
+        hiddenNeuronsInput.setText(String.valueOf(value));
+    }
 
     public int getNetworkInputsNum() throws EmptyInputFieldException {
         String inputsNumParam = inputNeuronsInput.getText();
